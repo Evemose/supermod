@@ -7,3 +7,9 @@ public abstract class ItemBase extends Item implements Creatable {
         super(properties);
     }
 }
+
+class Test extends ItemBase {
+    public Test() {
+        super(new Item.Properties());
+    }
+}
