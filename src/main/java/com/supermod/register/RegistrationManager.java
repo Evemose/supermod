@@ -11,7 +11,5 @@ public interface RegistrationManager extends Comparable<RegistrationManager> {
         return Long.compare(priority(), other.priority());
     }
 
-    default long priority() {
-        return 0;
-    }
+    long priority();
 }
