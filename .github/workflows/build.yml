@@ -4,4 +4,18 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            -   uses: gradle/gradle-build-action@v3.5.0
+            -   name: Checkout sources
+                uses: actions/checkout@v4
+            -   name: Setup Java
+                uses: actions/setup-java@v4
+                with:
+                    distribution: 'oracle'
+                    java-version: 21
+            -   name: Setup Gradle
+                uses: gradle/actions/setup-gradle@v4
+                with:
+                    gradle-version: 8.5
+            -   name: Make gradlew executable
+                run: chmod +x ./gradlew
+            -   name: Build with Gradle
+                run: ./gradlew build
