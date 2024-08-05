@@ -12,7 +12,8 @@ out
 *.iws
 *.iml
 .idea
-.idea/checkstyle-idea.xml
+.idea/*.xml
+.idea/checkstyleidea-libs
 
 # gradle
 build
