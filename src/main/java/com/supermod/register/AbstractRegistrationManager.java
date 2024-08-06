@@ -15,9 +15,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 public abstract class AbstractRegistrationManager<T extends Registrable> implements RegistrationManager {
 
-    private final Class<T> baseType;
-
     protected final DeferredRegister<? super T> registry;
+    private final Class<T> baseType;
 
     protected AbstractRegistrationManager(Class<T> baseType, IForgeRegistry<? super T> registries) {
         this.baseType = baseType;
@@ -32,7 +31,7 @@ public abstract class AbstractRegistrationManager<T extends Registrable> impleme
             .forEach(this::performOnRegistered);
         finalizeRegistration();
     }
-    
+
     @SneakyThrows
     @SuppressWarnings("unchecked")
     private RegistryObject<? extends T> register(Class<? extends T> clazz) {
