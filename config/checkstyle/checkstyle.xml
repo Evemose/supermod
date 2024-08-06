@@ -349,6 +349,8 @@
             <!-- The check is suppressed in the next line of code after the comment -->
             <property name="influenceFormat" value="1"/>
         </module>
-        <module name="com.supermod.checkstyle.RequiresFactoryCheck"/>
+        <module name="com.supermod.checkstyle.RequiresRegisterCheck"/>
+        <module name="com.supermod.checkstyle.NoDirectRegistrableCheck"/>
+        <module name="com.supermod.checkstyle.BaseClassShouldBeAbstract"/>
     </module>
 </module>

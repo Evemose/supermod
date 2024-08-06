@@ -18,7 +18,9 @@ public class Reflection {
 
     @SneakyThrows
     public static <T> T createInstance(Class<T> type, Object... args) {
-        return type.getDeclaredConstructor().newInstance(args);
+        var constructor = type.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        return constructor.newInstance(args);
     }
 
 }
