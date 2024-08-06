@@ -61,6 +61,14 @@ public class RequiresRegisterCheck extends AbstractCheck {
 
                 var methodName = ast.findFirstToken(TokenTypes.LPAREN).getPreviousSibling().getText();
                 var returnType = ast.findFirstToken(TokenTypes.TYPE).getFirstChild().getText();
+                var returnTypeArgs = ast.findFirstToken(TokenTypes.TYPE).findFirstToken(TokenTypes.TYPE_ARGUMENTS);
+
+                if (returnTypeArgs == null) {
+                    continue;
+                }
+
+                var returnTypeArg = returnTypeArgs.findFirstToken(TokenTypes.TYPE_ARGUMENT).findFirstToken(TokenTypes.IDENT).getText();
+
                 var firstParamType = ast.findFirstToken(TokenTypes.PARAMETERS).getFirstChild().findFirstToken(TokenTypes.TYPE).findFirstToken(TokenTypes.IDENT).getText();
                 var typeArg = ast.findFirstToken(TokenTypes.PARAMETERS).getFirstChild().findFirstToken(TokenTypes.TYPE)
                     .findFirstToken(TokenTypes.TYPE_ARGUMENTS).findFirstToken(TokenTypes.TYPE_ARGUMENT).findFirstToken(TokenTypes.IDENT).getText();
@@ -69,14 +77,16 @@ public class RequiresRegisterCheck extends AbstractCheck {
                     && ast.findFirstToken(TokenTypes.PARAMETERS).getChildCount() == 1
                     && firstParamType.equals("DeferredRegister")
                     && typeArg.equals(baseClassName.replace("Base", ""))
-                    && returnType.equals("void")) {
+                    && returnType.equals("RegistryObject")
+                    && returnTypeArg.equals(baseClassName.replace("Base", ""))
+                ) {
                     return;
                 }
             }
         }
 
         log(initialAst.getLineNo(),
-            "As non-abstract class that extends {0}, {1} must declare a public static void register(DeferredRegister<{2}> register) method",
+            "As non-abstract class that extends {0}, {1} must declare a public static RegistryObject<{2}> register(DeferredRegister<{2}> register) method",
             baseClassName, className, baseClassName.replace("Base", ""));
     }
 }
