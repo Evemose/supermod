@@ -36,7 +36,7 @@ public abstract class AbstractRegistrationManager<T extends Registrable> impleme
     @SuppressWarnings("unchecked")
     private RegistryObject<? extends T> register(Class<? extends T> clazz) {
         var handle = MethodHandles.lookup().findStatic(clazz, "register", MethodType.methodType(RegistryObject.class, DeferredRegister.class));
-        return (RegistryObject<? extends T>) handle.invoke(registry);
+        return (RegistryObject<? extends T>) handle.invokeExact(registry);
     }
 
     protected <R extends T> void performOnRegistered(RegistryObject<R> registered) {
